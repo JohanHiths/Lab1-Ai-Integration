@@ -1,7 +1,10 @@
 package ai.ai
 
+
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+
 
 
 @SpringBootApplication
@@ -11,5 +14,6 @@ fun main(args: Array<String>) {
 
     val client = 
 	runApplication<AiApplication>(*args)
+    
 
 }
