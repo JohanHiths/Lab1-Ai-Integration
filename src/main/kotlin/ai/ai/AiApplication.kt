@@ -7,6 +7,7 @@ import org.springframework.boot.runApplication
 
 
 
+
 @SpringBootApplication
 class AiApplication
 
@@ -14,6 +15,5 @@ fun main(args: Array<String>) {
 
     val client = 
 	runApplication<AiApplication>(*args)
-    
 
 }

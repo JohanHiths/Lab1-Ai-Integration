@@ -1,13 +1,12 @@
 package ai.ai.client
 
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient
 
 
-
-
-
-class WebClient {
+@Configuration
+class ChatClient {
 
 
     @Bean
@@ -15,9 +14,10 @@ class WebClient {
 
         return builder
             .baseUrl("http://localhost:1234")
-
             .build()
 
     }
+
+
 
 }

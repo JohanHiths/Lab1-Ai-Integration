@@ -1,5 +1,6 @@
 package ai.ai.personality
 
+
 class PersonalityMapping {
 
     fun getSystemPrompt(personality: String): String {

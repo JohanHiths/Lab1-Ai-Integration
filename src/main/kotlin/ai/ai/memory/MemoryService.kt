@@ -20,4 +20,5 @@ class MemoryService {
     fun getHistory(sessionId: String): List<String> {
         return memory[sessionId] ?: emptyList()
     }
+
 }
