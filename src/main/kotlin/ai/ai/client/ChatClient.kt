@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.client.WebClient
 class ChatClient {
 
 
+
+
     @Bean
     fun webClient(builder: WebClient.Builder): WebClient {
 

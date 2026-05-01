@@ -15,4 +15,9 @@ class TestService {
         println("API KEY LOADED: ${apiKey.isNotBlank()}")
     }
 
+
+    fun testCall(): String {
+        println("SERVICE METHOD CALLED")
+        return "Test"
+    }
 }

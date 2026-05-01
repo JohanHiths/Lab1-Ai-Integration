@@ -1,9 +1,11 @@
 package ai.ai.service
 
 
+import ai.ai.dto.OpenRouterResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
+import reactor.core.publisher.Mono
 
 
 @Service
@@ -12,6 +14,7 @@ class OpenRouterTestService(
     private val webClient: WebClient,
     @Value("\${llm.api-key}") private val apiKey: String
 ) {
+
 
     fun testCall(): String {
 
@@ -36,13 +39,27 @@ class OpenRouterTestService(
                 )
             )
             .retrieve()
-            .bodyToMono(String::class.java)
+            .onStatus({ it.value() == 402 }) {
+                Mono.error(RuntimeException("No credits on OpenRouter"))
+            }
+            .bodyToMono(OpenRouterResponse::class.java)
             .block()
 
+        val reply = response
+            ?.choices
+            ?.firstOrNull()
+            ?.message
+            ?.content
+            ?: "No response"
 
+        println("Response: $response")
 
-
-        return response ?: "No response"
+        return (response ?: "No response") as String
 
     }
+
+}
+fun testCall(): String {
+    println("SERVICE METHOD CALLED")
+    return "Test"
 }

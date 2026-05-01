@@ -17,17 +17,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/chat")
 
-class ChatController(private val chatService: ChatService) {
-
+class ChatController(private val chatService: ChatService
+, private val openRouterTestService: OpenRouterTestService
+) {
 
     val logger = LoggerFactory.getLogger(ChatController::class.java)
-    private val openRouterTestService: OpenRouterTestService
-
-        get() {
-            throw UnsupportedOperationException("Not supported yet.")
-
-        }
-
 
 
 
@@ -42,7 +36,6 @@ class ChatController(private val chatService: ChatService) {
 
 
     @GetMapping("/test-openrouter")
-
     fun testOpenRouter(): String {
         return openRouterTestService.testCall()
     }
