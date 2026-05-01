@@ -54,12 +54,7 @@ class OpenRouterTestService(
 
         println("Response: $response")
 
-        return (response ?: "No response") as String
+        return reply
 
     }
-
-}
-fun testCall(): String {
-    println("SERVICE METHOD CALLED")
-    return "Test"
 }

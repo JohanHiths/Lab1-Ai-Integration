@@ -26,7 +26,7 @@ class ChatController(private val chatService: ChatService
 
 
     @PostMapping
-    @Operation(method = "Send message to AI")
+    @Operation(summary = "Send message to AI")
     fun chat(@RequestBody request: ChatRequest): ChatResponse {
 
         val reply = chatService.sendMessage(request.message)
