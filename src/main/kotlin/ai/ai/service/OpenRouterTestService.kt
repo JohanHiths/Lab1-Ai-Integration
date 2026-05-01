@@ -14,12 +14,15 @@ class OpenRouterTestService(
 ) {
 
     fun testCall(): String {
+
         val response = webClient.post()
             .uri("https://openrouter.ai/api/v1/chat/completions")
             .header("Authorization", "Bearer $apiKey")
             .header("Content-Type", "application/json")
             .header("HTTP-Referer", "http://localhost:8080")
             .header("X-Title", "My Spring App")
+
+
 
             .bodyValue(
                 mapOf(
@@ -36,6 +39,10 @@ class OpenRouterTestService(
             .bodyToMono(String::class.java)
             .block()
 
+
+
+
         return response ?: "No response"
+
     }
 }

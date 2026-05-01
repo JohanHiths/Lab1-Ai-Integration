@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class ChatService {
+    fun sendMessage(message: String): String {
+        return "Test response"
+    }
+
+
+
+
 
 
 
