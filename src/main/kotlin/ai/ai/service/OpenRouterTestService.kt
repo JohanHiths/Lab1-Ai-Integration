@@ -2,6 +2,7 @@ package ai.ai.service
 
 
 import ai.ai.dto.OpenRouterResponse
+import ai.ai.exception.InsufficientCreditsException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
