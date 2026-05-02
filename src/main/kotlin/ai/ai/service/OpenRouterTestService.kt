@@ -44,7 +44,7 @@ class OpenRouterTestService(
             )
             .retrieve()
             .onStatus({ it.value() == 402 }) {
-                Mono.error(RuntimeException("No credits on OpenRouter"))
+                Mono.error(InsufficientCreditsException("No credits on OpenRouter"))
             }
             .bodyToMono(OpenRouterResponse::class.java)
             .block()

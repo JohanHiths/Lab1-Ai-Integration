@@ -1,6 +1,7 @@
 package ai.ai.controller
 
 import ai.ai.dto.ErrorResponse
+import ai.ai.exception.InsufficientCreditsException
 import ai.ai.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -36,5 +37,11 @@ class ControllerAdvice
         )
 
         return ResponseEntity(error, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(InsufficientCreditsException::class)
+    fun handleInsufficientCredits(ex: InsufficientCreditsException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(ex.message)
     }
 }
