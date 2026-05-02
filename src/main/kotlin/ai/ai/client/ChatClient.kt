@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient
 
 
+
 @Configuration
 class ChatClient {
+
+
 
 
     @Bean
@@ -16,7 +19,14 @@ class ChatClient {
             .baseUrl("http://localhost:1234")
             .build()
 
+
+
+
     }
+
+
+
+
 
 
 
