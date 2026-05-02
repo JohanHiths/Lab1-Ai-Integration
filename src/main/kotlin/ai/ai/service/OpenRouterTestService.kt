@@ -12,18 +12,22 @@ import reactor.core.publisher.Mono
 class OpenRouterTestService(
 
     private val webClient: WebClient,
-    @Value("\${llm.api-key}") private val apiKey: String
+    @Value("\${llm.api-key}") private val apiKey: String,
+    @Value("\${llm.base-url}") private val baseUrl: String
 ) {
 
 
     fun testCall(): String {
 
         val response = webClient.post()
-            .uri("https://openrouter.ai/api/v1/chat/completions")
+//            .uri("https://openrouter.ai/api/v1/chat/completions")
+            .uri("$baseUrl/chat/completions")
+
             .header("Authorization", "Bearer $apiKey")
             .header("Content-Type", "application/json")
             .header("HTTP-Referer", "http://localhost:8080")
             .header("X-Title", "My Spring App")
+
 
 
 
