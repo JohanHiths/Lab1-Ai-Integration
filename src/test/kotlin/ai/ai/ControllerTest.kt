@@ -26,6 +26,8 @@ class ControllerTest {
     @MockitoBean
     lateinit var openRouterTestService: OpenRouterTestService
 
+
+
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -53,26 +55,27 @@ class ControllerTest {
 
 
     @Test
-    fun `should return 500 when serive throws exception`() {
-        whenever(chatService.sendMessage(any()))
-        .thenReturn("Test error")
+    fun `should return 500 when service fails`() {
+
+        whenever(openRouterTestService.testCall())
+            .thenThrow(RuntimeException("trouble"))
 
         val json = """
-            {
-              "personality": "coder",
-              "message": "Hello",
-              "sessionId": "user-123"
-            }
-        """.trimIndent()
+        {
+          "personality": "coder",
+          "message": "Hello",
+          "sessionId": "user-123"
+        }
+    """
 
         mockMvc.perform(
             post("/api/v1/chat")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
         )
-
-        .andExpect(status().isInternalServerError)
-            .andExpect(jsonPath("$.reply").value("Something went wrong"))
-
+            .andExpect(status().isInternalServerError)
+            .andExpect(jsonPath("$.message").value("Something went wrong"))
     }
+
+
 }

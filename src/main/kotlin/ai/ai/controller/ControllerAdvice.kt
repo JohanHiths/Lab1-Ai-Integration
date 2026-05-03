@@ -22,6 +22,7 @@ class ControllerAdvice
             message = ex.message ?: "Invalid request",
             status = HttpStatus.BAD_REQUEST.value(),
             timestamp = java.time.Instant.now().toString()
+
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)

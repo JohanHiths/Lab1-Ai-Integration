@@ -37,7 +37,10 @@ class ChatController(private val chatService: ChatService
 
         val reply = chatService.sendMessage(request.message)
 
+
+
         return ChatResponse(reply)
+
 
 
 
@@ -48,6 +51,7 @@ class ChatController(private val chatService: ChatService
     @GetMapping("/test-openrouter")
     fun testOpenRouter(): String {
         return openRouterTestService.testCall()
+
     }
 
 
