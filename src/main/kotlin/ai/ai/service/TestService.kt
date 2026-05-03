@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class TestService {
+class TestService(private val openRouterTestService: OpenRouterTestService) {
 
-    private val openRouterTestService: OpenRouterTestService = TODO("initialize me")
+
 
     @Value("\${llm.api-key}")
     lateinit var apiKey: String

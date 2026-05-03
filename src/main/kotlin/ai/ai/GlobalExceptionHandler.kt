@@ -1,4 +1,4 @@
-package ai.ai.exception
+package ai.ai
 
 class ResourceNotFoundException(message: String) : RuntimeException(message)
 
