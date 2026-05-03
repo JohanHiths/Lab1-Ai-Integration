@@ -52,4 +52,27 @@ class ControllerTest {
     }
 
 
+    @Test
+    fun `should return 500 when serive throws exception`() {
+        whenever(chatService.sendMessage(any()))
+        .thenReturn("Test error")
+
+        val json = """
+            {
+              "personality": "coder",
+              "message": "Hello",
+              "sessionId": "user-123"
+            }
+        """.trimIndent()
+
+        mockMvc.perform(
+            post("/api/v1/chat")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json)
+        )
+
+        .andExpect(status().isInternalServerError)
+            .andExpect(jsonPath("$.reply").value("Something went wrong"))
+
+    }
 }
