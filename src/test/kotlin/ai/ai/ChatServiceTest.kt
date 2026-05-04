@@ -1,8 +1,9 @@
 package ai.ai
 
 
+import ai.ai.client.ChatClient
 import ai.ai.service.ChatService
-import ai.ai.service.OpenRouterTestService
+
 import ai.ai.service.TestService
 
 import org.mockito.kotlin.whenever
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.any
+import org.mockito.kotlin.verify
 import org.springframework.boot.test.context.SpringBootTest
 
 import kotlin.test.assertEquals
@@ -25,26 +28,34 @@ import kotlin.test.assertEquals
 class ChatServiceTest() {
 
     @Mock
-    lateinit var openRouterTestService: OpenRouterTestService
+    lateinit var chatClient: ChatClient
 
 
     @InjectMocks
     lateinit var chatService: ChatService
 
-    @InjectMocks
-    lateinit var TestService: TestService
+
 
 
 
     @Test
-    fun `should return response from openRouter`() {
-
-        whenever(openRouterTestService.testCall())
+    fun `should return response from client`() {
+        whenever(chatClient.callLLM(any(), any()))
             .thenReturn("Test response")
 
-        val result = TestService.testCall()
+        val result = chatService.sendMessage("hello", "coder")
 
-        assertEquals("Test response", result.reply)
+        assertEquals("Test response", result)
+        verify(chatClient).callLLM(any(), any())
+    }
+
+
+    @Test
+    fun `should return coder system prompt`() {
+
+        val result = chatService.buildSystemPrompt("coder")
+
+        assertEquals("You are a helpful coding assistant.", result)
     }
 
 

@@ -3,26 +3,21 @@ package ai.ai
 
 
 
+import ai.ai.client.ChatClient
 import ai.ai.controller.ChatController
 import ai.ai.service.ChatService
-import ai.ai.service.OpenRouterTestService
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
-
-
-
-
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request
 
 
 @WebMvcTest(controllers = [ChatController::class])
@@ -33,7 +28,7 @@ class ControllerTest {
     lateinit var chatService: ChatService
 
     @MockitoBean
-    lateinit var openRouterTestService: OpenRouterTestService
+    lateinit var chatClient: ChatClient
 
 
 
@@ -42,7 +37,7 @@ class ControllerTest {
 
     @Test
     fun `should return AI response`() {
-        whenever(chatService.sendMessage(any()))
+        whenever(chatService.sendMessage(any(), any()))
             .thenReturn("Test response")
 
         val json = """
@@ -66,7 +61,7 @@ class ControllerTest {
     @Test
     fun `should return 500 when service fails`() {
 
-        whenever(chatService.sendMessage(any()))
+        whenever(chatService.sendMessage(any(), any()))
             .thenThrow(RuntimeException("Service unavailable"))
 
         val json = """

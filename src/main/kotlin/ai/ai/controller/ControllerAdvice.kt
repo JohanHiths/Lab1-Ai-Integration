@@ -1,10 +1,11 @@
 package ai.ai.controller
 
 import ai.ai.dto.ErrorResponse
-import ai.ai.InsufficientCreditsException
-import ai.ai.ResourceNotFoundException
+import ai.ai.exception.InsufficientCreditsException
+import ai.ai.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
@@ -56,4 +57,21 @@ class ControllerAdvice
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
             .body(ex.message)
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+
+        val message = ex.bindingResult.fieldErrors
+            .firstOrNull()
+            ?.defaultMessage ?: "Validation error"
+
+        val error = ErrorResponse(
+            message = message,
+            status = HttpStatus.BAD_REQUEST.value(),
+            timestamp = java.time.Instant.now().toString()
+        )
+
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
 }
