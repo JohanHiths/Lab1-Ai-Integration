@@ -10,4 +10,4 @@ class InvalidRequestException(message: String) : RuntimeException(message)
 
 class InternalServerErrorException(message: String) : RuntimeException(message)
 
-class ServiceUnavailableException(message: String, ex: HttpStatusCodeException) : RuntimeException(message)
+class ServiceUnavailableException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
