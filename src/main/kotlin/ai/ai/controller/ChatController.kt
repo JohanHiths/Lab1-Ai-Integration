@@ -34,7 +34,11 @@ class ChatController(private val chatService: ChatService
     @ApiResponse(responseCode = "400", description = "Invalid request")
     fun chat(@Valid @RequestBody request: ChatRequest): ChatResponse {
 
-        logger.info("Received request: $request")
+        logger.info(
+            "Received chat request: personality={}, messageLength={}",
+            request.personality,
+            request.message.length
+        )
 
 
         val reply = chatService.sendMessage(request.message, request.personality)

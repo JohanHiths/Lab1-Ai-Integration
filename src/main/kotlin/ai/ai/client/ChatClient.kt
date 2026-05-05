@@ -21,6 +21,12 @@ class ChatClient(
 
 ) {
 
+    init{
+        if (provider == "openrouter") {
+            require(apiKey.isNotBlank()) { "llm.api-key must be set for provider openrouter" }
+        }
+    }
+
 
     fun callLLM(message: String, systemPrompt: String): String {
 
