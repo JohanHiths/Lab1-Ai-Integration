@@ -3,7 +3,11 @@ package ai.ai.client
 import ai.ai.dto.OpenRouterResponse
 import ai.ai.exception.ServiceUnavailableException
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.retry.annotation.Backoff
+import org.springframework.retry.annotation.Retryable
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
+import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestClient
 
 
@@ -24,6 +28,18 @@ class ChatClient(
             require(apiKey.isNotBlank()) { "llm.api-key must be set for provider openrouter" }
         }
     }
+
+    @Retryable(
+        retryFor = [
+            HttpServerErrorException::class,
+            HttpClientErrorException.TooManyRequests::class
+        ],
+        maxAttempts = 3,
+        backoff = Backoff(
+            delay = 1000,
+            multiplier = 2.0
+        )
+    )
 
 
     fun callLLM(message: String, systemPrompt: String): String {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+
+<div class="main-container">
+<div class="container">
+
+<h2>🤖 AI Chat</h2>
+
+<label for="personality"><select id="personality">
+    <option value="coder">💻 Coder </option>
+    <option value="pirate">🏴‍☠️ Pirate </option>
+    <option value="robot">🤖 Robot</option>
+    <option value="philosopher">🤔 Philosopher</option>
+
+</select>
+</label>
+
+    <div id="chat" class="chat-box"></div>
+
+    <div class="input-row">
+        <input id="message" placeholder="Type a message..." />
+    </div>
+    <button onclick="sendMessage()">Send</button>
+
+
+
+<pre id="response"></pre>
+
+
+</div>
+</div>
+<script src="chat.js"></script>
+
+</body>
+
+</html>
