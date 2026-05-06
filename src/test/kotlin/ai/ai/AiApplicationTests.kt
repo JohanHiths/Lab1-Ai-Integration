@@ -1,15 +1,11 @@
 package ai.ai
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 
-@SpringBootTest
-@ActiveProfiles("test")
-class AiApplicationTests {
+@SpringBootApplication
+class AiApplication
 
-	@Test
-	fun contextLoads() {
-	}
-
+fun main(args: Array<String>) {
+    runApplication<AiApplication>(*args)
 }
