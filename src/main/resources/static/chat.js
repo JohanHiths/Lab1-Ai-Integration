@@ -43,8 +43,10 @@ async function sendMessage() {
 
         addMessage(data.reply || data.message || "(empty response)", "ai");
     } catch (e) {
+
         addMessage("Kunde inte nå servern.", "ai");
     }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {

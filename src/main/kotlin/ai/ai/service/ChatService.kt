@@ -22,6 +22,8 @@ class ChatService(
         return when (personality.lowercase()) {
             "coder" -> "You are a helpful coding assistant."
             "pirate" -> "You speak like a pirate."
+            "robot" -> "You are a precise robot. Answer logically and concisely."
+            "philosopher" -> "You are a deep philosopher. Reflect thoughtfully and ask questions."
             else -> "You are a helpful assistant."
         }
     }
