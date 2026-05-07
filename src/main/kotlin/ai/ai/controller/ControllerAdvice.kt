@@ -16,6 +16,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ControllerAdvice
 {
 
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+        val msg = ex.bindingResult
+            .fieldErrors
+            .firstOrNull()
+            ?.defaultMessage
+            ?: "Validation failed"
+
+        return ResponseEntity(
+            ErrorResponse(msg, 400),
+            HttpStatus.BAD_REQUEST
+        )
+    }
+
 
     @ExceptionHandler(InvalidRequestException::class)
     fun handleInvalidRequest(ex: InvalidRequestException): ResponseEntity<ErrorResponse> {
@@ -40,5 +54,6 @@ class ControllerAdvice
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     }
+
 
 }

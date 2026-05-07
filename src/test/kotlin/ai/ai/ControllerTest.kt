@@ -37,7 +37,7 @@ class ControllerTest {
 
     @Test
     fun `should return AI response`() {
-        whenever(chatService.sendMessage(any(), any()))
+        whenever(chatService.sendMessage(any(), any(), any()))
             .thenReturn("Test response")
 
         val json = """
@@ -61,7 +61,7 @@ class ControllerTest {
     @Test
     fun `should return 500 when service fails`() {
 
-        whenever(chatService.sendMessage(any(), any()))
+        whenever(chatService.sendMessage(any(),any(), any()))
             .thenThrow(RuntimeException("Service unavailable"))
 
         val json = """

@@ -3,6 +3,7 @@ package ai.ai.service
 import ai.ai.client.ChatClient
 import ai.ai.dto.ChatRequest
 import ai.ai.dto.ChatResponse
+import ai.ai.enum.Personality
 import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -21,11 +22,12 @@ class TestService(private val chatService: ChatService, private val chatClient: 
     }
 
 
-   
     fun chat(request: ChatRequest): ChatResponse {
-        val reply = chatService.sendMessage(request.message, request.personality)
+        val sessionId = request.sessionId ?: "anonymous"
+        val reply = chatService.sendMessage(sessionId, request.message, request.personality)
         return ChatResponse(reply)
     }
+
 
 
 
