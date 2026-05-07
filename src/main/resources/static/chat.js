@@ -7,6 +7,7 @@ function addMessage(text, type) {
 
     chat.appendChild(div);
     chat.scrollTop = chat.scrollHeight;
+
 }
 
 async function sendMessage() {
@@ -46,6 +47,7 @@ async function sendMessage() {
 
         addMessage("Kunde inte nå servern.", "ai");
     }
+
 
 }
 

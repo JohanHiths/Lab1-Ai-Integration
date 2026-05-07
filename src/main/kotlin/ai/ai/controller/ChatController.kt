@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/chat")
 
 class ChatController(private val chatService: ChatService
-, private val chatClient: ChatClient
+, private val chatClient: ChatClient, private val memoryService: ai.ai.memory.MemoryService
 ) {
          val localDateTime = java.time.LocalDateTime.now()
     val logger = LoggerFactory.getLogger(ChatController::class.java)
@@ -45,7 +45,11 @@ class ChatController(private val chatService: ChatService
 
 
         return ChatResponse(reply)
+    }
 
+    @GetMapping("/v1/chat/{sessionId}")
+    fun getSessionHistory(): String {
+        return memoryService.getHistory("user-123").joinToString("\n")
 
     }
 

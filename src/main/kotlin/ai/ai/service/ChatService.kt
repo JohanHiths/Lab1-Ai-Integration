@@ -3,10 +3,10 @@ package ai.ai.service
 import ai.ai.client.ChatClient
 import org.springframework.stereotype.Service
 
-
 @Service
 class ChatService(
-    private val chatClient: ChatClient
+    private val chatClient: ChatClient,
+    private val memoryService: ai.ai.memory.MemoryService
 ) {
 
     fun sendMessage(message: String, personality: String): String {
@@ -14,9 +14,13 @@ class ChatService(
         return chatClient.callLLM(message, systemPrompt)
     }
 
+    fun getHistory(sessionId: String): List<String> {
+        val history = memoryService.getHistory(sessionId)
 
-
-
+        return history.map { chatMessage ->
+            "${chatMessage.role}: ${chatMessage.content}"
+        }
+    }
 
     fun buildSystemPrompt(personality: String): String {
         return when (personality.lowercase()) {
@@ -27,7 +31,4 @@ class ChatService(
             else -> "You are a helpful assistant."
         }
     }
-
-
-
 }
