@@ -9,7 +9,9 @@ It supports personalities, validation, and structured error handling.
 
 Create an API key at OpenRouter
 Set environment variable:
-export OPENROUTER_API_KEY=your_api_key_here
+
+OPENROUTER_API_KEY=your_api_key_here
+
 Use these properties:
 
 llm.provider=openrouter
@@ -17,7 +19,6 @@ llm.base-url=https://openrouter.ai/api
 llm.api-key=${OPENROUTER_API_KEY}
 
 ## 🧪 How to test
-
 
  Frontend (easiest)
 Open:
