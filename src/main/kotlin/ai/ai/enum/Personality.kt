@@ -1,8 +1,11 @@
 package ai.ai.enum
 
 
-enum class Personality {
-    HELPER,
-    PIRATE,
-    CODER
+enum class Personality(string: String) {
+    CODER("helper"),
+    PIRATE("pirate"),
+    ROBOT("robot"),
+    PHILOSOPHER("philosopher");
+
+
 }

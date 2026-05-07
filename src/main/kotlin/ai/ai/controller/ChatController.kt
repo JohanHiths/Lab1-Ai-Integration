@@ -20,14 +20,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/chat")
-
-class ChatController(private val chatService: ChatService
-, private val chatClient: ChatClient, private val memoryService: ai.ai.memory.MemoryService
+class ChatController(
+    private val chatService: ChatService,
+    private val chatClient: ChatClient,
+    private val memoryService: ai.ai.memory.MemoryService
 ) {
-         val localDateTime = java.time.LocalDateTime.now()
+    val localDateTime = java.time.LocalDateTime.now()
     val logger = LoggerFactory.getLogger(ChatController::class.java)
-
-
 
     @PostMapping
     @Operation(summary = "Send message to AI")
@@ -41,12 +40,12 @@ class ChatController(private val chatService: ChatService
             request.message.length
         )
 
-
-        val reply = chatService.sendMessage(request.message, request.personality)
-
+        val sessionId = request.sessionId ?: "anonymous"
+        val reply = chatService.sendMessage(sessionId, request.message, request.personality)
 
         return ChatResponse(reply)
     }
+
 
     @GetMapping("/v1/chat/{sessionId}")
     fun getSessionHistory(@PathVariable sessionId: String): String {

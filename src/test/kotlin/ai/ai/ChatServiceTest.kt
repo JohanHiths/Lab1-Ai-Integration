@@ -2,6 +2,7 @@ package ai.ai
 
 
 import ai.ai.client.ChatClient
+import ai.ai.enum.Personality
 import ai.ai.service.ChatService
 
 import ai.ai.service.TestService
@@ -43,20 +44,20 @@ class ChatServiceTest() {
         whenever(chatClient.callLLM(any(), any()))
             .thenReturn("Test response")
 
-        val result = chatService.sendMessage("hello", "coder")
+        val result = chatService.sendMessage("user-123", "hello", Personality.CODER)
 
         assertEquals("Test response", result)
         verify(chatClient).callLLM(any(), any())
     }
 
 
+
     @Test
     fun `should return coder system prompt`() {
-
-        val result = chatService.buildSystemPrompt("coder")
-
+        val result = chatService.buildSystemPrompt(Personality.CODER)
         assertEquals("You are a helpful coding assistant.", result)
     }
+
 
 
 }
