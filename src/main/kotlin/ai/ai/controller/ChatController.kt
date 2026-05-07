@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -48,8 +49,8 @@ class ChatController(private val chatService: ChatService
     }
 
     @GetMapping("/v1/chat/{sessionId}")
-    fun getSessionHistory(): String {
-        return memoryService.getHistory("user-123").joinToString("\n")
+    fun getSessionHistory(@PathVariable sessionId: String): String {
+        return chatService.getHistory(sessionId).joinToString("\n")
 
     }
 

@@ -3,23 +3,26 @@ package ai.ai.memory
 import ai.ai.dto.ChatMessage
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.util.Collections
+import java.util.concurrent.ConcurrentHashMap
 
 @Service
 class MemoryService {
 
-    val memory = mutableMapOf<String, MutableList<ChatMessage>>()
+    private val memory = ConcurrentHashMap<String, MutableList<ChatMessage>>()
 
-    @Value("\${llm.api-key}")
-    lateinit var apiKey: String
+
     fun addMessage(sessionId: String, message: ChatMessage) {
-        memory.computeIfAbsent(sessionId) {
-            mutableListOf()
-        }.add(message)
+        val list = memory.computeIfAbsent(sessionId) {
+            Collections.synchronizedList(mutableListOf())
+        }
+        list.add(message)
     }
 
 
     fun getHistory(sessionId: String): List<ChatMessage> {
-        return memory[sessionId] ?: emptyList()
+        val list = memory[sessionId] ?: return emptyList()
+        synchronized(list) { return list.toList() }
     }
 
 
