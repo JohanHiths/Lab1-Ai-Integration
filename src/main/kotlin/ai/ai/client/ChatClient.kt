@@ -2,7 +2,10 @@ package ai.ai.client
 
 import ai.ai.dto.OpenRouterResponse
 import ai.ai.exception.ServiceUnavailableException
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.cloud.client.loadbalancer.LoadBalancerProperties
+import org.springframework.resilience.annotation.Retryable
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.HttpServerErrorException
@@ -28,7 +31,9 @@ class ChatClient(
     }
 
 
-
+    @CircuitBreaker(name = "llm")
+    @Retryable(
+    )
     fun callLLM(message: String, systemPrompt: String): String {
 
         val maxAttempts = 3
