@@ -16,7 +16,7 @@ import kotlin.test.Test
     properties = [
         "llm.provider=openrouter",
         "llm.api-key=test-key",
-        "llm.base-url=http://localhost:8080"
+        "llm.base-url=http://localhost:\${wiremock.server.port}"
     ]
 )
 @EnableWireMock

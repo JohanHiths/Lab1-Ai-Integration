@@ -3,6 +3,7 @@ package ai.ai
 
 import ai.ai.client.ChatClient
 import ai.ai.enum.Personality
+import ai.ai.memory.MemoryService
 import ai.ai.service.ChatService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -23,6 +24,9 @@ class ChatServiceTest() {
 
     @Mock
     lateinit var chatClient: ChatClient
+
+    @Mock
+    lateinit var memoryService: MemoryService
 
 
     @InjectMocks
