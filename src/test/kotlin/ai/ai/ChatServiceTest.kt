@@ -4,14 +4,7 @@ package ai.ai
 import ai.ai.client.ChatClient
 import ai.ai.enum.Personality
 import ai.ai.service.ChatService
-
-import ai.ai.service.TestService
-
-import org.mockito.kotlin.whenever
-import org.springframework.beans.factory.annotation.Autowired
-
-import org.springframework.test.context.ActiveProfiles
-
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -19,9 +12,9 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
-import org.springframework.boot.test.context.SpringBootTest
+import org.mockito.kotlin.whenever
+import org.springframework.test.context.ActiveProfiles
 
-import kotlin.test.assertEquals
 
 
 @ExtendWith(MockitoExtension::class)

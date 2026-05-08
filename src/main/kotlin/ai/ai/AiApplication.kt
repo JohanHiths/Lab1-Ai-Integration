@@ -7,8 +7,9 @@ import org.springframework.boot.runApplication
 
 
 
-@SpringBootApplication
 
+
+@SpringBootApplication
 class AiApplication
 
 fun main(args: Array<String>) {
