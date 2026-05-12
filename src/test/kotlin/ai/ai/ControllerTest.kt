@@ -5,6 +5,7 @@ package ai.ai
 
 import ai.ai.client.ChatClient
 import ai.ai.controller.ChatController
+import ai.ai.memory.MemoryService
 import ai.ai.service.ChatService
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
@@ -29,6 +30,10 @@ class ControllerTest {
 
     @MockitoBean
     lateinit var chatClient: ChatClient
+
+    @MockitoBean
+    lateinit var memoryService: MemoryService
+
 
 
 
