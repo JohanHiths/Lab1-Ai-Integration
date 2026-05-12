@@ -1,20 +1,17 @@
 package ai.ai.controller
 
 import ai.ai.dto.ErrorResponse
-import ai.ai.exception.InsufficientCreditsException
 import ai.ai.exception.InvalidRequestException
-import ai.ai.exception.ResourceNotFoundException
 import ai.ai.exception.ServiceUnavailableException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-
 @RestControllerAdvice
-class ControllerAdvice
-{
+class ControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
@@ -30,6 +27,13 @@ class ControllerAdvice
         )
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleNotReadable(ex: HttpMessageNotReadableException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse("Invalid request body", 400),
+            HttpStatus.BAD_REQUEST
+        )
+    }
 
     @ExceptionHandler(InvalidRequestException::class)
     fun handleInvalidRequest(ex: InvalidRequestException): ResponseEntity<ErrorResponse> {
@@ -54,6 +58,4 @@ class ControllerAdvice
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     }
-
-
 }
