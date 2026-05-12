@@ -13,8 +13,8 @@ body {
 }
 
 .container {
-    width: 400px;
-    height: 350px;
+    width: 450px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     background: #1e293b;
